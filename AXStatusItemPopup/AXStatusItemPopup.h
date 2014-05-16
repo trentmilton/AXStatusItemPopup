@@ -7,8 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "INPopoverController.h"
 
-@interface AXStatusItemPopup : NSView
+#define kMenuItemShownNotification @"kMenuItemShownNotification"
+
+@protocol AXStatusItemPopupDelegate <NSObject>
+
+@optional
+
+- (BOOL) statusItemPopupShouldClose;
+
+@end
+
+@interface AXStatusItemPopup : NSView <INPopoverControllerDelegate>
 
 // properties
 @property(assign, nonatomic, getter=isActive) BOOL active;
@@ -16,20 +27,16 @@
 @property(strong, nonatomic) NSImage *image;
 @property(strong, nonatomic) NSImage *alternateImage;
 @property(strong, nonatomic) NSStatusItem *statusItem;
-
+@property(nonatomic, strong) id <AXStatusItemPopupDelegate> statusItemPopupDelegate;
 
 // init
 - (id)initWithViewController:(NSViewController *)controller;
 - (id)initWithViewController:(NSViewController *)controller image:(NSImage *)image;
 - (id)initWithViewController:(NSViewController *)controller image:(NSImage *)image alternateImage:(NSImage *)alternateImage;
 
-
 // show / hide popover
 - (void)showPopover;
 - (void)showPopoverAnimated:(BOOL)animated;
 - (void)hidePopover;
-
-// view size
-- (void)setContentSize:(CGSize *)size;
 
 @end
