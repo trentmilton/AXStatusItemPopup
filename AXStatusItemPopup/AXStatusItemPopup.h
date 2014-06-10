@@ -15,19 +15,20 @@
 
 @optional
 
-- (BOOL) statusItemPopupShouldClose;
+- (BOOL)statusItemPopupShouldClose;
+- (void)statusItemDidShow;
 
 @end
 
 @interface AXStatusItemPopup : NSView <INPopoverControllerDelegate>
 
 // properties
-@property(assign, nonatomic, getter=isActive) BOOL active;
-@property(assign, nonatomic) BOOL animated;
-@property(strong, nonatomic) NSImage *image;
-@property(strong, nonatomic) NSImage *alternateImage;
-@property(strong, nonatomic) NSStatusItem *statusItem;
-@property(nonatomic, strong) id <AXStatusItemPopupDelegate> statusItemPopupDelegate;
+@property (assign, nonatomic, getter=isActive) BOOL active;
+@property (assign, nonatomic) BOOL animated;
+@property (strong, nonatomic) NSImage *image;
+@property (strong, nonatomic) NSImage *alternateImage;
+@property (strong, nonatomic) NSStatusItem *statusItem;
+@property (nonatomic, strong) id<AXStatusItemPopupDelegate> statusItemPopupDelegate;
 
 // init
 - (id)initWithViewController:(NSViewController *)controller;
