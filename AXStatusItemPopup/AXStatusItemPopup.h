@@ -7,29 +7,41 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "INPopoverController.h"
 
-@interface AXStatusItemPopup : NSView
+#define kMenuItemShownNotification @"kMenuItemShownNotification"
+
+@protocol AXStatusItemPopupDelegate <NSObject>
+
+@optional
+
+- (BOOL)statusItemPopupShouldClose;
+- (void)statusItemDidShow;
+
+@end
+
+@interface AXStatusItemPopup : NSView <INPopoverControllerDelegate>
 
 // properties
-@property(assign, nonatomic, getter=isActive) BOOL active;
-@property(assign, nonatomic) BOOL animated;
-@property(strong, nonatomic) NSImage *image;
-@property(strong, nonatomic) NSImage *alternateImage;
-@property(strong, nonatomic) NSStatusItem *statusItem;
+@property (assign, nonatomic, getter=isActive) BOOL active;
+@property (assign, nonatomic) BOOL animated;
+@property (strong, nonatomic) NSImage *image;
+@property (strong, nonatomic) NSImage *alternateImage;
+@property (strong, nonatomic) NSStatusItem *statusItem;
+@property (nonatomic, strong) id<AXStatusItemPopupDelegate> statusItemPopupDelegate;
 
-/**
- Popovers may have one of several predefined appearances.
- You may specify the appearance of a popover using the constants defined in NSPopoverAppearance. The default appearance is NSPopoverAppearanceMinimal.
- 
- @param appearance NSPopoverAppearance
- */
-@property(nonatomic, strong, readonly) NSPopover *popover;
+///**
+// Popovers may have one of several predefined appearances.
+// You may specify the appearance of a popover using the constants defined in NSPopoverAppearance. The default appearance is NSPopoverAppearanceMinimal.
+// 
+// @param appearance NSPopoverAppearance
+// */
+//@property(nonatomic, strong, readonly) NSPopover *popover;
 
 // init
 - (id)initWithViewController:(NSViewController *)controller;
 - (id)initWithViewController:(NSViewController *)controller image:(NSImage *)image;
 - (id)initWithViewController:(NSViewController *)controller image:(NSImage *)image alternateImage:(NSImage *)alternateImage;
-
 
 // show / hide popover
 - (void)showPopover;
