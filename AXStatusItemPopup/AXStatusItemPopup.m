@@ -111,7 +111,7 @@
 
 - (void)rightMouseDown:(NSEvent *)theEvent
 {
-    [self mouseDown:nil];
+    [self mouseDown:theEvent];
 }
 
 ////////////////////////////////////
